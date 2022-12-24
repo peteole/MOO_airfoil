@@ -1,5 +1,7 @@
 #!/bin/bash
 
+HOMEDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 json=$1
 p=$(echo $json | jq -r '.p')
 m=$(echo $json | jq -r '.m')
@@ -22,6 +24,12 @@ setBoundaryType frontAndBackPlanes empty
 setBoundaryType AIRFOIL wall
 SILENT=1 ./run_at_angle.sh $angle
 
-C_D=$(tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat  | awk '{print "\t" $4}')
-C_L=$(tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat  | awk '{print "\t" $5}')
-echo "{\"C_L\": $C_L, \"C_D\": $C_D}"
+radangle=$(jq -n $angle\*3.14159265359/180)
+C_D=$(tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat  | awk '{print "\t" $3}')
+C_L=$(tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat  | awk '{print "\t" $4}')
+cd $HOMEDIR
+tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat \
+    | awk -v a=$radangle '{print "{\"C_L\": "cos(a)*$4-sin(a)*$3", \"C_D\": "cos(a)*$3+sin(a)", \"C_N\": "$4", \"C_T\": "$3", \"angle\": "a"}"}'\
+    > results/"$p"_"$m"_"$t"_"$angle".json
+
+cat results/"$p"_"$m"_"$t"_"$angle".json
