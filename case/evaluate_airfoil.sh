@@ -27,9 +27,9 @@ SILENT=1 ./run_at_angle.sh $angle
 radangle=$(jq -n $angle\*3.14159265359/180)
 C_D=$(tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat  | awk '{print "\t" $3}')
 C_L=$(tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat  | awk '{print "\t" $4}')
-cd $HOMEDIR
 tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat \
     | awk -v a=$radangle '{print "{\"C_L\": "cos(a)*$4-sin(a)*$3", \"C_D\": "cos(a)*$3+sin(a)", \"C_N\": "$4", \"C_T\": "$3", \"angle\": "a"}"}'\
-    > results/"$p"_"$m"_"$t"_"$angle".json
+    > $HOMEDIR/results/"$p"_"$m"_"$t"_"$angle".json
 
+cd $HOMEDIR
 cat results/"$p"_"$m"_"$t"_"$angle".json

@@ -27,7 +27,7 @@ n_points_per_side=200
 n_aerofoil_points=2*n_points_per_side
 bounding_radius=7.0
 far_field_mesh_size=0.3
-airfoil_mesh_size=0.005
+airfoil_mesh_size=0.003
 run(`./set_config_property.sh name unstructured_gmsh_$(airfoil_mesh_size)_$(far_field_mesh_size)`)
 touch("aerofoil.geo")
 open("aerofoil.geo","w")do io
