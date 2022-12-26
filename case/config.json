@@ -1,1 +1,1 @@
-{ "name": "unstructured_gmsh_0.005_0.3", "cells": "6162", "maxAspectRatio": "1.92041", "turbulence_model": "kEpsilon" }
+{ "name": "unstructured_gmsh_0.003_0.3", "cells": "6162", "maxAspectRatio": "1.92041", "turbulence_model": "kEpsilon" }
