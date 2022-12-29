@@ -79,10 +79,10 @@ open("aerofoil.geo","w")do io
     Field[1] = Box;
     Field[1].XMax = 2.5;
     Field[1].XMin = -0.8;
-    Field[1].YMax = 1.5;
+    Field[1].YMax = 1.2;
     Field[1].YMin = -0.3;
     Field[1].Thickness = 0.6;
-    Field[1].VIn = 0.02;
+    Field[1].VIn = 0.025;
     Field[1].ZMax = 2;
     Field[1].ZMin = -1;
     Background Field = 1;
