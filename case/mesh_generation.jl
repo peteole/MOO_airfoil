@@ -27,7 +27,7 @@ n_points_per_side=200
 n_aerofoil_points=2*n_points_per_side
 bounding_radius=7.0
 far_field_mesh_size=0.3
-airfoil_mesh_size=5e-3
+airfoil_mesh_size=1e-3
 run(`./set_config_property.sh name unstructured_gmsh_$(airfoil_mesh_size)_$(far_field_mesh_size)`)
 touch("aerofoil.geo")
 open("aerofoil.geo","w")do io
@@ -77,12 +77,12 @@ open("aerofoil.geo","w")do io
     Recombine Surface{1};
     Recombine Surface{1};
     Field[1] = Box;
-    Field[1].XMax = 3;
-    Field[1].XMin = -0.3;
+    Field[1].XMax = 2.5;
+    Field[1].XMin = -0.8;
     Field[1].YMax = 1.5;
     Field[1].YMin = -0.3;
-    Field[1].Thickness = 0.1;
-    Field[1].VIn = 0.08;
+    Field[1].Thickness = 0.6;
+    Field[1].VIn = 0.02;
     Field[1].ZMax = 2;
     Field[1].ZMin = -1;
     Background Field = 1;
