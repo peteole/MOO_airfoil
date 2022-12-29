@@ -19,4 +19,4 @@ postProcessing/yPlus
 constant/polyMesh
 aerofoil_str.*
 aerofoil.*
-!results/**
+results
