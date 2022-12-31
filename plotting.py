@@ -1,4 +1,7 @@
 from botorch.models.gpytorch import GPyTorchModel
+from botorch.utils.multi_objective.box_decompositions.dominated import (
+    DominatedPartitioning,
+)
 import torch
 import matplotlib.pyplot as plt
 def plot_model(model: GPyTorchModel,x0,x1, steps=100):
@@ -20,4 +23,21 @@ def plot_model(model: GPyTorchModel,x0,x1, steps=100):
         ax[i].errorbar(coeffs,y_mean[:,i],yerr=y_var[:,i])
 
 def plot_population(Y):
-    plt.scatter(Y[:,0],Y[:,1])
+    # scatter Y with axis labels
+    fig,ax=plt.subplots()
+    ax.scatter(Y[:,0],Y[:,1])
+    ax.set_xlabel('Y1')
+    ax.set_ylabel('Y2')
+
+def plot_hypervolume_over_iteration(Y):
+    # Y is of shape (n_iterations, n_objectives)
+    hypervolumes=[]
+    for i in range(Y.shape[0]):
+        bd = DominatedPartitioning(ref_point=torch.tensor([-1,-2]), Y=Y[0:i,:])
+        hv=bd.compute_hypervolume().item()
+        hypervolumes.append(hv)
+
+    fig,ax=plt.subplots()
+    ax.plot(hypervolumes)
+    ax.set_xlabel('Iteration')
+    ax.set_ylabel('Hypervolume')
