@@ -18,3 +18,6 @@ def plot_model(model: GPyTorchModel,x0,x1, steps=100):
     for i in range(2):
         ax[i].plot(coeffs,y_mean[:,i])
         ax[i].errorbar(coeffs,y_mean[:,i],yerr=y_var[:,i])
+
+def plot_population(Y):
+    plt.scatter(Y[:,0],Y[:,1])

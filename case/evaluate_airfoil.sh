@@ -33,4 +33,10 @@ tail -n 1 postProcessing/calcForceCoefficients/0/forceCoeffs.dat \
     > $HOMEDIR/results/"$p"_"$m"_"$t"_"$angle".json
 
 cd $HOMEDIR
+
+#delete the temporary directory if KEEP_TEMP is not set
+if [ -z "$KEEP_TEMP" ]; then
+    rm -rf /tmp/airfoil/"$p"_"$m"_"$t"_"$angle"
+fi
+
 cat results/"$p"_"$m"_"$t"_"$angle".json
