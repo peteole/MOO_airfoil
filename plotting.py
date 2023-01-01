@@ -31,13 +31,17 @@ def plot_population(Y):
     ax.set_xlabel('Y1')
     ax.set_ylabel('Y2')
 
+def hypervolume(Y,ref_point=torch.tensor([-1,-2])):
+    # compute hypervolume of Y
+    bd = DominatedPartitioning(ref_point=ref_point, Y=Y)
+    hv=bd.compute_hypervolume().item()
+    return hv
+
 def plot_hypervolume_over_iteration(Y):
     # Y is of shape (n_iterations, n_objectives)
     hypervolumes=[]
     for i in range(Y.shape[0]):
-        bd = DominatedPartitioning(ref_point=torch.tensor([-1,-2]), Y=Y[0:i,:])
-        hv=bd.compute_hypervolume().item()
-        hypervolumes.append(hv)
+        hypervolumes.append(hypervolume(Y[0:i,:]))
 
     fig,ax=plt.subplots()
     ax.plot(hypervolumes)
