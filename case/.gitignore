@@ -20,3 +20,4 @@ constant/polyMesh
 aerofoil_str.*
 aerofoil.*
 !results/**
+!results_random/**
