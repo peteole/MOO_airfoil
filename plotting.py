@@ -37,11 +37,11 @@ def hypervolume(Y,ref_point=torch.tensor([-1,-2])):
     hv=bd.compute_hypervolume().item()
     return hv
 
-def plot_hypervolume_over_iteration(Y):
+def plot_hypervolume_over_iteration(Y,ref_point=torch.tensor([-1,-2])):
     # Y is of shape (n_iterations, n_objectives)
     hypervolumes=[]
     for i in range(Y.shape[0]):
-        hypervolumes.append(hypervolume(Y[0:i,:]))
+        hypervolumes.append(hypervolume(Y[0:i,:],ref_point=ref_point))
 
     fig,ax=plt.subplots()
     ax.plot(hypervolumes)
