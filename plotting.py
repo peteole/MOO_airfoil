@@ -16,11 +16,11 @@ def plot_model(model: GPyTorchModel,x0,x1, steps=100):
     y_mean=p.mean
     y_var=p.variance
     y_mean=y_mean.detach().numpy()
-    y_var=y_var.detach().numpy()
+    y_std=y_var.sqrt().detach().numpy()
     fig,ax=plt.subplots(1,2,figsize=(12, 7))
     for i in range(2):
         ax[i].plot(coeffs,y_mean[:,i])
-        ax[i].errorbar(coeffs,y_mean[:,i],yerr=y_var[:,i])
+        ax[i].errorbar(coeffs,y_mean[:,i],yerr=y_std[:,i])
         ax[i].set_xlabel(r'$\lambda$')
         ax[i].set_ylabel(f'Y{i+1}')
 
