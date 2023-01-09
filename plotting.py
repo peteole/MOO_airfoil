@@ -24,12 +24,16 @@ def plot_model(model: GPyTorchModel,x0,x1, steps=100):
         ax[i].set_xlabel(r'$\lambda$')
         ax[i].set_ylabel(f'Y{i+1}')
 
-def plot_population(Y):
+def plot_population(Y:torch.Tensor, algorithm_population_count=0):
     # scatter Y with axis labels
     fig,ax=plt.subplots()
-    ax.scatter(Y[:,0],Y[:,1])
+    last_random=Y.shape[0]-algorithm_population_count
+    ax.scatter(Y[:last_random,0],Y[:last_random,1], c='blue')
     ax.set_xlabel('Y1')
     ax.set_ylabel('Y2')
+    if algorithm_population_count > 0:
+        ax.scatter(Y[last_random:,0],Y[last_random:,1], c='red')
+        ax.legend(('random','optimizer'))
 
 def hypervolume(Y,ref_point=torch.tensor([-1,-2])):
     # compute hypervolume of Y
